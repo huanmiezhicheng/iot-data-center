@@ -1,17 +1,25 @@
-import React from 'react';
+import { Provider } from 'react-redux';
+import axios from 'axios';
+import store from './store/store.js'  //redux需要一个仓库进行存储
+import { renderRoutes } from 'react-router-config'
+import routes from './router'
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, {
+  Suspense
+} from 'react'
+
+import { Toast } from 'antd-mobile'
+import 'antd-mobile/dist/antd-mobile.css';
+import {
+  HashRouter
+} from 'react-router-dom'
+
+React.Component.prototype.$axios = axios;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  <Provider store={store}>
+    <HashRouter>
+      <Suspense fallback={<div>{Toast.loading('',.1)} </div>}>{renderRoutes(routes)}</Suspense>
+    </HashRouter>
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  </Provider>, document.getElementById('root'));

@@ -1,0 +1,4 @@
+{ 
+  “ libraryName”：“ antd-mobile” ，
+  “ style”：true ，   //或'css' 
+}
